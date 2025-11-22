@@ -1,0 +1,33 @@
+# Node
+node_modules/
+.env
+.DS_Store
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Build
+dist/
+build/
+coverage/
+
+# Logs
+logs/
+*.log
+
+# Editor/IDE
+.vscode/
+.idea/
+
+# Packages
+*.tgz
+
+# OS
+Thumbs.db
+
+# Optional
+coverage/
+
+# Keep example files
+*.example
