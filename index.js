@@ -1,23 +1,22 @@
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
+const sequelize = require('./src/config/db');
 
+//Usado para las variables de entorno
 try {
   require('dotenv').config();
 } catch (e) {}
 
 const app = express();
-const port = process.env.PORT || 3000;
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+const port = process.env.PORT;
 
 // Servir archivos estáticos desde /public
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Servir index.html en la raíz
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.sendFile(path.join(__dirname, 'public','views', 'index.html'));
 });
 
 // Si existe un router en src/routes/index.js lo montamos
@@ -38,6 +37,19 @@ app.use((req, res) => {
   return res.status(404).send('Página no encontrada');
 });
 
-app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
-});
+// **Prueba de conexión y levantar servidor**
+async function startServer() {
+  try {
+    await sequelize.authenticate();
+    console.log('Conexión a la base de datos exitosa.');
+
+    const port = process.env.PORT || 3000;
+    app.listen(port, () => {
+      console.log(`Server running on http://localhost:${port}`);
+    });
+  } catch (error) {
+    console.error('No se pudo conectar a la base de datos:', error);
+  }
+}
+
+startServer();
