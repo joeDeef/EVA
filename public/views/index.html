@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema Nacional de Votación Electrónica - Ecuador</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <div class="header-title">
+          <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+          </svg>
+          <span>Sistema de Votación</span>
+        </div>
+        <div class="badge badge-success">
+          <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+          </svg>
+          Sistema Seguro
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="gradient-bg">
+    <!-- Hero Section -->
+    <section style="padding: 4rem 0; text-align: center;">
+      <div class="container">
+        <div style="max-width: 800px; margin: 0 auto;">
+          <h1 style="font-size: 3rem; margin-bottom: 1.5rem; font-weight: 700;">
+            Sistema Nacional de<br>Votación Electrónica
+          </h1>
+          <p style="font-size: 1.25rem; color: var(--muted-foreground); margin-bottom: 3rem;">
+            Participe en el proceso democrático de forma segura, transparente y confiable
+          </p>
+
+          <div class="flex-center gap-4" style="flex-wrap: wrap;">
+            <a href="/voter-login" class="btn btn-primary btn-lg">
+              <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
+              </svg>
+              Ingresar a Votar
+            </a>
+            <a href="/results" class="btn btn-outline btn-lg">
+              <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+              </svg>
+              Ver Resultados
+            </a>
+          </div>
+
+          <div style="margin-top: 2rem;">
+            <a href="/admin-login" style="color: var(--muted-foreground); text-decoration: underline; font-size: 0.875rem;">
+              Ingreso Administradores
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section style="padding: 4rem 0;">
+      <div class="container">
+        <h2 style="text-align: center; font-size: 2rem; margin-bottom: 3rem;">
+          ¿Por qué votar electrónicamente?
+        </h2>
+        
+        <div class="grid grid-cols-3">
+          <div class="card animate-fade-in">
+            <div style="width: 3rem; height: 3rem; background: var(--primary); color: white; border-radius: var(--radius); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
+              <svg class="icon-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+              </svg>
+            </div>
+            <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;">Seguridad Garantizada</h3>
+            <p class="text-muted">
+              Sistema con encriptación de extremo a extremo que protege la identidad del votante y la integridad del voto.
+            </p>
+          </div>
+
+          <div class="card animate-fade-in" style="animation-delay: 0.1s;">
+            <div style="width: 3rem; height: 3rem; background: var(--accent); color: var(--accent-foreground); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
+              <svg class="icon-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+              </svg>
+            </div>
+            <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;">Proceso Simple</h3>
+            <p class="text-muted">
+              Interfaz intuitiva y fácil de usar. Vote en pocos minutos siguiendo instrucciones claras paso a paso.
+            </p>
+          </div>
+
+          <div class="card animate-fade-in" style="animation-delay: 0.2s;">
+            <div style="width: 3rem; height: 3rem; background: var(--success); color: white; border-radius: var(--radius); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
+              <svg class="icon-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+              </svg>
+            </div>
+            <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;">Resultados en Tiempo Real</h3>
+            <p class="text-muted">
+              Consulte los resultados actualizados constantemente de forma transparente y verificable.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How to Vote Section -->
+    <section style="padding: 4rem 0; background: white;">
+      <div class="container">
+        <h2 style="text-align: center; font-size: 2rem; margin-bottom: 3rem;">
+          ¿Cómo votar?
+        </h2>
+        
+        <div class="grid grid-cols-3">
+          <div style="text-align: center;">
+            <div style="width: 4rem; height: 4rem; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 1.5rem; font-weight: 700;">
+              1
+            </div>
+            <h3 style="font-size: 1.125rem; margin-bottom: 0.5rem;">Autenticación Segura</h3>
+            <p class="text-muted">
+              Ingrese con su cédula y complete la verificación de identidad
+            </p>
+          </div>
+
+          <div style="text-align: center;">
+            <div style="width: 4rem; height: 4rem; background: var(--accent); color: var(--accent-foreground); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 1.5rem; font-weight: 700;">
+              2
+            </div>
+            <h3 style="font-size: 1.125rem; margin-bottom: 0.5rem;">Lee las Instrucciones</h3>
+            <p class="text-muted">
+              Revise el proceso de votación y las reglas importantes
+            </p>
+          </div>
+
+          <div style="text-align: center;">
+            <div style="width: 4rem; height: 4rem; background: var(--success); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 1.5rem; font-weight: 700;">
+              3
+            </div>
+            <h3 style="font-size: 1.125rem; margin-bottom: 0.5rem;">Vota y Confirma</h3>
+            <p class="text-muted">
+              Seleccione su candidato y confirme su decisión
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script src="../js/main.js"></script>
+  </main>
+
+  <footer style="background: var(--card); border-top: 1px solid var(--border); padding: 2rem 0; margin-top: 4rem;">
+    <div class="container text-center">
+      <p class="text-muted" style="font-size: 0.875rem;">
+        © 2025 Sistema Nacional de Votación Electrónica - República del Ecuador
+      </p>
+    </div>
+  </footer>
+</body>
+</html>
