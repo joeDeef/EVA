@@ -11,6 +11,8 @@ try {
 const app = express();
 const port = process.env.PORT;
 
+app.use(express.json());
+
 // Servir archivos estáticos desde /public
 app.use(express.static(path.join(__dirname, 'public')));
 
