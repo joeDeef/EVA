@@ -89,33 +89,41 @@
 
         <!-- Step 2 Form (Hidden initially) -->
         <form id="step2-form" class="hidden">
-          <div class="alert alert-info mb-6">
+          <div class="alert alert-info mb-6" id="step2-alert">
             <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
             </svg>
             <div>
-              <strong>Código enviado</strong>
-              <p style="font-size: 0.875rem; margin-top: 0.25rem;">
-                Hemos enviado un código de verificación a su correo electrónico registrado
+              <strong id="step2-alert-title">Se enviará un código</strong>
+              <p id="step2-alert-message" style="font-size: 0.875rem; margin-top: 0.25rem;">
+                Se enviará un código de <span id="code-digits">8</span> dígitos a <span id="masked-email">easda*******@dominio.com</span>
               </p>
+              <p id="step2-alert-help" style="font-size: 0.875rem; margin-top: 0.25rem;">
+                Si este no es su correo, comuníquese con soporte técnico.
+              </p>
+              <button type="button" id="send-code-btn" class="btn btn-outline mt-3" style="width: 100%;">
+                Enviar código
+              </button>
             </div>
           </div>
 
-          <div class="form-group">
-            <label for="codigoEmail" class="form-label">Código de Verificación</label>
-            <input 
-              type="text" 
-              id="codigoEmail" 
-              class="form-input" 
-              placeholder="123456"
-              maxlength="6"
-              style="text-align: center; font-size: 1.5rem; letter-spacing: 0.5rem;"
-            >
-          </div>
+          <div id="code-entry-area" class="hidden">
+            <div class="form-group">
+              <label for="codigoEmail" class="form-label">Código de Verificación</label>
+              <input 
+                type="text" 
+                id="codigoEmail" 
+                class="form-input" 
+                placeholder="12345678"
+                maxlength="8"
+                style="text-align: center; font-size: 1.5rem; letter-spacing: 0.5rem;"
+              >
+            </div>
 
-          <button type="submit" class="btn btn-primary" style="width: 100%;">
-            Verificar e Ingresar
-          </button>
+            <button type="submit" id="verify-btn" class="btn btn-primary" style="width: 100%;">
+              Verificar e Ingresar
+            </button>
+          </div>
 
           <button type="button" id="back-btn" class="btn btn-outline mt-4" style="width: 100%;">
             Volver

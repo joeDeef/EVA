@@ -22,13 +22,13 @@ app.get('/', (req, res) => {
 });
 
 // Si existe un router en src/routes/index.js lo montamos
-const routesPath = path.join(__dirname, 'src', 'routes', 'index.js');
+const routesPath = path.join(__dirname, 'src', 'routes', 'routes.js');
 if (fs.existsSync(routesPath)) {
   try {
     const indexRouter = require(routesPath);
     app.use('/', indexRouter);
   } catch (err) {
-    console.warn('No se pudo montar src/routes/index.js:', err.message);
+    console.warn('No se pudo montar src/routes/routes.js:', err);
   }
 }
 

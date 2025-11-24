@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instrucciones de Votación - Sistema de Votación</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <div class="header-title">
+          <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+          </svg>
+          <span>Instrucciones de Votación</span>
+        </div>
+        <div class="badge" style="background: var(--warning); color: var(--warning-foreground);">
+          <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          Tiempo límite: 10 minutos
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="gradient-bg" style="padding: 3rem 0;">
+    <div class="container" style="max-width: 900px;">
+      <div class="text-center mb-8">
+        <h1 style="font-size: 2.5rem; margin-bottom: 0.5rem;">Instrucciones de Votación</h1>
+        <p style="font-size: 1.125rem; color: var(--muted-foreground);">
+          Lea cuidadosamente antes de continuar
+        </p>
+      </div>
+
+      <div class="alert alert-warning mb-6">
+        <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+        </svg>
+        <div>
+          Es obligatorio leer todas las instrucciones antes de proceder a votar.
+          Su comprensión garantiza la validez de su voto.
+        </div>
+      </div>
+
+      <!-- Instruction Cards -->
+      <div class="grid" style="gap: 1.5rem; margin-bottom: 2rem;">
+        <div class="card">
+          <div class="flex gap-4">
+            <div style="flex-shrink: 0; width: 2.5rem; height: 2.5rem; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.125rem;">
+              1
+            </div>
+            <div>
+              <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;">Proceso de Selección</h3>
+              <p class="text-muted">
+                En la siguiente pantalla verá la lista de candidatos disponibles.
+                Cada candidato tendrá su fotografía, nombre completo y número de lista.
+              </p>
+              <strong style="display: block; margin-top: 0.5rem;">
+                Solo puede seleccionar UNA opción.
+              </strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="flex gap-4">
+            <div style="flex-shrink: 0; width: 2.5rem; height: 2.5rem; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.125rem;">
+              2
+            </div>
+            <div>
+              <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;">Tiempo Límite</h3>
+              <p class="text-muted">
+                Dispondrá de <strong style="color: var(--warning-foreground);">10 minutos</strong> para completar
+                su votación desde que ingrese a la pantalla de votación.
+              </p>
+              <ul style="margin-top: 0.75rem; margin-left: 1.5rem; color: var(--muted-foreground);">
+                <li>Un cronómetro visible mostrará el tiempo restante</li>
+                <li>Si el tiempo expira, su sesión se cerrará automáticamente y se guardará su voto con la ultima opción elegida</li>
+                <li>Si al finalizar el timpeo no ha elegido un opción, su voto se guardara como blanco</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="flex gap-4">
+            <div style="flex-shrink: 0; width: 2.5rem; height: 2.5rem; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.125rem;">
+              3
+            </div>
+            <div>
+              <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;">Confirmación del Voto</h3>
+              <p class="text-muted">
+                Después de seleccionar su candidato, se le mostrará una pantalla de confirmación.
+              </p>
+              <ul style="margin-top: 0.75rem; margin-left: 1.5rem; color: var(--muted-foreground);">
+                <li>Revise cuidadosamente su selección</li>
+                <li>Puede cambiar su elección antes de confirmar</li>
+                <li>Una vez confirmado, <strong style="color: var(--foreground);">el voto es DEFINITIVO</strong></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="flex gap-4">
+            <div style="flex-shrink: 0; width: 2.5rem; height: 2.5rem; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.125rem;">
+              4
+            </div>
+            <div>
+              <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;">Registro y Seguridad</h3>
+              <p class="text-muted">
+                Su voto será registrado de forma segura y anónima:
+              </p>
+              <ul style="margin-top: 0.75rem; margin-left: 1.5rem; color: var(--muted-foreground);">
+                <li>El sistema no asocia su identidad con su elección</li>
+                <li>Solo se registra que usted ya ejerció su derecho al voto</li>
+                <li>No podrá votar nuevamente una vez completado el proceso</li>
+                <li>Recibirá un comprobante de votación al finalizar</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Acceptance Card -->
+      <div class="card" style="background: var(--muted);">
+        <div class="checkbox-wrapper">
+          <input type="checkbox" id="accept" class="checkbox">
+          <label for="accept" style="font-weight: 500; line-height: 1.6; cursor: pointer;">
+            He leído y comprendido todas las instrucciones del proceso de votación.
+            Acepto que mi voto será definitivo una vez confirmado y que no podré
+            realizar cambios posteriores.
+          </label>
+        </div>
+      </div>
+
+      <!-- Continue Button -->
+      <div class="flex" style="justify-content: flex-end; margin-top: 2rem;">
+        <button id="continue-btn" class="btn btn-primary btn-lg" disabled>
+          Continuar a Votación
+          <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <script src="/js/voting-instructions.js"></script>
+</body>
+</html>

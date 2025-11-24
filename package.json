@@ -12,8 +12,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@supabase/supabase-js": "^2.84.0",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
+    "nodemailer": "^7.0.10",
     "sequelize": "^6.37.7",
     "tedious": "^19.1.3"
   },

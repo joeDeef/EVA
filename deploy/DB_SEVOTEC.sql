@@ -128,6 +128,16 @@ CREATE TABLE dbo.Votos (
 );
 GO
 
+CREATE TABLE SesionTemporal (
+    token VARCHAR(200) PRIMARY KEY,
+    cedula VARCHAR(10) NOT NULL,
+    email VARCHAR(200) NOT NULL,
+    verified BIT DEFAULT 0,
+    expiresAt BIGINT NOT NULL,
+    createdAt DATETIME2 DEFAULT GETUTCDATE(),
+    updatedAt DATETIME2 DEFAULT GETUTCDATE()
+);
+
 /* ============================================
    RESTRICCIÓN: Un usuario = 1 voto por elección
 ============================================ */
@@ -167,7 +177,7 @@ GO
 ============================================ */
 INSERT INTO dbo.Usuarios (Cedula, CodigoDactilar, Correo, Nombres, Provincia)
 VALUES
-('0102030405','AB12','user1@mail.com','Carlos Pérez','Azuay'),
+('1724915770','V4443V3442','josejoel.defaz@gmail.com','Joel Defaz','Pichincha'),
 ('0203040506','CD34','user2@mail.com','María López','Pichincha'),
 ('0304050607','EF56','user3@mail.com','Juan Torres','Guayas'),
 ('0405060708','GH78','user4@mail.com','Ana Gómez','Loja'),
@@ -278,3 +288,5 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON dbo.Elecciones TO app_votaciones;
 GRANT SELECT, INSERT, UPDATE, DELETE ON dbo.Candidatos TO app_votaciones;
 -- Votos
 GRANT SELECT, INSERT, UPDATE, DELETE ON dbo.Votos TO app_votaciones;
+-- SesionTemporal
+GRANT SELECT, INSERT, UPDATE, DELETE ON dbo.SesionTemporal TO app_votaciones;
