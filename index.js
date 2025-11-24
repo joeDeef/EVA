@@ -11,6 +11,9 @@ try {
 const app = express();
 const port = process.env.PORT;
 
+app.use(express.json()); 
+app.use(express.urlencoded({ extended: true }));
+
 // Servir archivos estáticos desde /public
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -42,6 +45,7 @@ async function startServer() {
   try {
     await sequelize.authenticate();
     console.log('Conexión a la base de datos exitosa.');
+    // await sequelize.sync(); 
 
     const port = process.env.PORT || 3000;
     app.listen(port, () => {

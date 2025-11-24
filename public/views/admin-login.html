@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Administrativo - SEVOTEC</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="gradient-bg" style="min-height: 100vh; display: flex; align-items: center; justify-content: center;">
+
+  <div class="card animate-fade-in" style="width: 100%; max-width: 400px; padding: 2rem;">
+    <div style="text-align: center; margin-bottom: 2rem;">
+      <h2 style="font-size: 1.5rem; font-weight: 700; color: var(--foreground);">Acceso Administrativo</h2>
+      <p class="text-muted">Solo personal autorizado</p>
+    </div>
+
+    <form id="adminLoginForm">
+      <div style="margin-bottom: 1rem;">
+        <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Correo Institucional</label>
+        <input type="email" id="email" required style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: var(--radius);">
+      </div>
+
+      <div style="margin-bottom: 1.5rem;">
+        <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Contraseña</label>
+        <input type="password" id="password" required style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: var(--radius);">
+      </div>
+
+      <button type="submit" class="btn btn-primary" style="width: 100%;">Ingresar al Dashboard</button>
+    </form>
+    <div id="errorMsg" style="color: red; margin-top: 10px; text-align: center; display: none;"></div>
+  </div>
+
+  <script>
+    document.getElementById('adminLoginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const correo = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      try {
+        const response = await fetch('/api/admin/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ correo, password })
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+          // Guardar token si usas JWT o simplemente redirigir si usas cookies de sesión
+          window.location.href = '/admin/dashboard';
+        } else {
+          const msg = document.getElementById('errorMsg');
+          msg.textContent = data.message || "Error de credenciales";
+          msg.style.display = 'block';
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    });
+  </script>
+</body>
+</html>
