@@ -3,7 +3,7 @@ const sequelize = require("../config/db");
 
 const Usuario = sequelize.define("Usuario", {
   UsuarioID: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-  Cedula: { type: DataTypes.STRING(10), allowNull: false, unique: true },
+  Cedula: { type: DataTypes.STRING(20), allowNull: false, unique: true },
   CodigoDactilar: { type: DataTypes.STRING(20), allowNull: false },
   Correo: { type: DataTypes.STRING(120), allowNull: false },
   Nombres: { type: DataTypes.STRING(120), allowNull: false },

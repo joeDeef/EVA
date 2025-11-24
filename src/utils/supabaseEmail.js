@@ -33,9 +33,6 @@ async function verifyOtp(codigoUsuario, emailUsuario) {
     console.error("Código incorrecto!", verifyError);
     return false;
   }
-
-  console.log("Código válido! Sesión iniciada:");
-  console.log(verifyData);
   return true;
 }
 

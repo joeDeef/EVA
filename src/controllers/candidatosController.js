@@ -1,6 +1,5 @@
 const Candidato = require("../models/Candidato");
-const Eleccion = require("../models/Eleccion");
-const { Op, Sequelize } = require("sequelize");
+const { obtenerEleccionActiva } = require("../utils/elecciónActiva");
 
 exports.getCandidatos = async () => {
   const eleccion = await obtenerEleccionActiva();
@@ -21,16 +20,3 @@ exports.getCandidatos = async () => {
 
   return lista;
 };
-
-async function obtenerEleccionActiva() {
-  const eleccion = await Eleccion.findOne({
-    where: {
-      Estado: "Activa",
-      FechaInicio: { [Op.lte]: Sequelize.literal("GETDATE()") },
-      FechaFin: { [Op.gte]: Sequelize.literal("GETDATE()") }
-    },
-    order: [["EleccionID", "ASC"]]
-  });
-
-  return eleccion;
-}

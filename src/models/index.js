@@ -6,6 +6,7 @@ const AdminCredencial = require("./AdminCredencial");
 const Eleccion = require("./Eleccion");
 const Candidato = require("./Candidato");
 const Voto = require("./Voto");
+const SesionTemporal = require("./SesionTemporal");
 
 module.exports = {
   sequelize,
@@ -14,5 +15,6 @@ module.exports = {
   AdminCredencial,
   Eleccion,
   Candidato,
-  Voto
+  Voto,
+  SesionTemporal
 };

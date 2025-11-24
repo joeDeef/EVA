@@ -21,10 +21,18 @@ const SesionTemporal = sequelize.define('SesionTemporal', {
   expiresAt: {
     type: DataTypes.BIGINT, // timestamp en ms
     allowNull: false,
+  },
+  createdAt: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW,
+  },
+  updatedAt: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW,
   }
 }, {
   tableName: 'SesionTemporal',
-  timestamps: true, // createdAt y updatedAt
+  timestamps: false, // Manejamos createdAt y updatedAt manualmente
 });
 
 module.exports = SesionTemporal;

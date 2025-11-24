@@ -29,7 +29,7 @@ router.get("/voting", async (req, res) => {
 
 router.get("/vote-success", (req, res) => {
   res.sendFile(
-    path.join(__dirname, "..", "..", "public", "views", "vote-success.html")
+    path.join(__dirname, "..", "..", "public", "views", "vote-sucess.html")
   );
 });
 
