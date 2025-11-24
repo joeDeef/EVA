@@ -21,23 +21,10 @@ router.get("/voting-instructions", (req, res) => {
   );
 });
 
-router.get("/voting", (req, res) => {
-  res.sendFile(
-    path.join(__dirname, "..", "..", "public", "views", "voting.html")
-  );
-});
-
-router.get("/vote-confirmation", (req, res) => {
-  res.sendFile(
-    path.join(
-      __dirname,
-      "..",
-      "..",
-      "public",
-      "views",
-      "vote-confirmation.html"
-    )
-  );
+router.get("/voting", async (req, res) => {
+  const candidatosController = require("../controllers/candidatosController");
+  const candidatos = await candidatosController.getCandidatos();
+  res.render("voting", { candidatos });
 });
 
 router.get("/vote-success", (req, res) => {
