@@ -101,6 +101,7 @@ CREATE TABLE dbo.Candidatos (
     EleccionID     INT NOT NULL,
     Nombre         VARCHAR(150) NOT NULL,
     Descripcion    VARCHAR(300) NULL,
+    Partido        VARCHAR(100) NULL,
     Activo         BIT NOT NULL DEFAULT 1,
     FechaCreacion  DATETIME NOT NULL DEFAULT GETDATE(),
     FOREIGN KEY (EleccionID) REFERENCES dbo.Elecciones(EleccionID)
@@ -116,17 +117,25 @@ GO
 
 CREATE TABLE dbo.Votos (
     VotoID        INT IDENTITY(1,1) PRIMARY KEY,
-    UsuarioID     INT NOT NULL,
     EleccionID    INT NOT NULL,
     CandidatoID   INT NOT NULL,
     Provincia     VARCHAR(100) NOT NULL,
     FechaVoto     DATETIME NOT NULL DEFAULT GETDATE(),
-
-    FOREIGN KEY (UsuarioID)    REFERENCES dbo.Usuarios(UsuarioID),
+    FechaActualizacion DATETIME NOT NULL DEFAULT GETDATE(),
     FOREIGN KEY (EleccionID)   REFERENCES dbo.Elecciones(EleccionID),
     FOREIGN KEY (CandidatoID)  REFERENCES dbo.Candidatos(CandidatoID)
 );
 GO
+
+CREATE TABLE SesionTemporal (
+    token VARCHAR(200) PRIMARY KEY,
+    cedula VARCHAR(10) NOT NULL,
+    email VARCHAR(200) NOT NULL,
+    verified BIT DEFAULT 0,
+    expiresAt BIGINT NOT NULL,
+    createdAt DATETIME2 DEFAULT GETUTCDATE(),
+    updatedAt DATETIME2 DEFAULT GETUTCDATE()
+);
 
 /* ============================================
    RESTRICCIÓN: Un usuario = 1 voto por elección
@@ -165,18 +174,18 @@ GO
 /* ============================================
    INSERTS: USUARIOS
 ============================================ */
-INSERT INTO dbo.Usuarios (Cedula, CodigoDactilar, Correo, Nombres, Provincia)
+INSERT INTO dbo.Usuarios (Cedula, CodigoDactilar, Correo, Nombres, Provincia, HaVotado)
 VALUES
-('0102030405','AB12','user1@mail.com','Carlos Pérez','Azuay'),
-('0203040506','CD34','user2@mail.com','María López','Pichincha'),
-('0304050607','EF56','user3@mail.com','Juan Torres','Guayas'),
-('0405060708','GH78','user4@mail.com','Ana Gómez','Loja'),
-('0506070809','IJ90','user5@mail.com','Luis Herrera','Manabí'),
-('0607080910','KL12','user6@mail.com','Sofía Vega','El Oro'),
-('0708091011','MN34','user7@mail.com','Pedro Ramos','Tungurahua'),
-('0809101112','OP56','user8@mail.com','Andrea Ruiz','Cotopaxi'),
-('0910111213','QR78','user9@mail.com','Daniel Castro','Chimborazo'),
-('1011121314','ST90','user10@mail.com','Carla Mendoza','Carchi');
+('1721354687','V4443V3442','josejoel.defaz@gmail.com','Joel Defaz','Pichincha',0),
+('0204567893','CD34','user2@mail.com','María López','Pichincha',0),
+('0309876543','EF56','user3@mail.com','Juan Torres','Guayas',0),
+('0405678916','GH78','user4@mail.com','Ana Gómez','Loja',0),
+('0506789124','IJ90','user5@mail.com','Luis Herrera','Manabí',0),
+('0603456785','KL12','user6@mail.com','Sofía Vega','El Oro',0),
+('0702345671','MN34','user7@mail.com','Pedro Ramos','Tungurahua',0),
+('0804567815','OP56','user8@mail.com','Andrea Ruiz','Cotopaxi',0),
+('0912345674','QR78','user9@mail.com','Daniel Castro','Chimborazo',0),
+('1015678932','ST90','user10@mail.com','Carla Mendoza','Carchi',0);
 GO
 
 /* ============================================
@@ -218,51 +227,23 @@ GO
 ============================================ */
 INSERT INTO dbo.Elecciones (Nombre, FechaInicio, FechaFin, Estado)
 VALUES
-('Elección Presidencial 2025','2025-11-01','2025-11-10','Activa'),
-('Elección Local Quito','2026-03-01','2026-03-05','Activa'),
-('Elección Estudiantil','2025-12-01','2025-12-02','Activa'),
-('Elección Comité Empresa','2026-01-10','2026-01-11','Activa'),
-('Elección Vecinal','2025-09-15','2025-09-16','Cerrada'),
-('Elección Ambiental','2025-08-20','2025-08-21','Archivada'),
-('Elección Barrial','2025-10-01','2025-10-02','Cerrada'),
-('Elección Directiva','2024-04-01','2024-04-02','Archivada'),
-('Elección Provincial','2026-05-10','2026-05-15','Activa'),
-('Elección General 2027','2027-02-01','2027-02-10','Activa');
+('Consulta Popular 2025','2025-11-24 06:00','2025-11-25 23:00','Activa'),
+('Elección Local Quito','2026-03-01 06:00','2026-03-05 18:00','Cerrado')
 GO
 
 /* ============================================
    INSERTS: CANDIDATOS
 ============================================ */
-INSERT INTO dbo.Candidatos (EleccionID, Nombre, Descripcion)
+INSERT INTO dbo.Candidatos (EleccionID, Nombre, Descripcion, Partido)
 VALUES
-(1,'Candidato A','Propuesta 1'),
-(1,'Candidato B','Propuesta 2'),
-(1,'Candidato C','Propuesta 3'),
-(1,'Candidato D','Propuesta 4'),
-(1,'Candidato E','Propuesta 5'),
-
-(2,'Candidato X','Plan 1'),
-(2,'Candidato Y','Plan 2'),
-(2,'Candidato Z','Plan 3'),
-(2,'Candidato W','Plan 4'),
-(2,'Candidato V','Plan 5');
-GO
-
-/* ============================================
-   INSERTS: VOTOS
-============================================ */
-INSERT INTO dbo.Votos (UsuarioID, EleccionID, CandidatoID, Provincia)
-VALUES
-(1,1,1,'Azuay'),
-(2,1,2,'Pichincha'),
-(3,1,3,'Guayas'),
-(4,1,1,'Loja'),
-(5,1,4,'Manabí'),
-(6,2,6,'El Oro'),
-(7,2,7,'Tungurahua'),
-(8,2,8,'Cotopaxi'),
-(9,2,9,'Chimborazo'),
-(10,2,10,'Carchi');
+(1,'Pregunta A','Bases Militares','Partido A'),
+(1,'Pregunta B','Reelección Presidencial','Partido B'),
+(1,'Pregunta C','Circo','Partido C'),
+(1,'Pregunta D','Constitución','Partido D'),
+(1,'Voto Blanco','Sin elección','Ninguno'),
+(1,'Voto Nulo','Ninguno','Ninguno'),
+(2,'Candidato X','Plan 1','Partido X'),
+(2,'Candidato Y','Plan 2','Partido Y')
 GO
 
 -- Dar permisos mínimos sobre las tablas necesarias
@@ -277,4 +258,6 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON dbo.Elecciones TO app_votaciones;
 -- Candidatos
 GRANT SELECT, INSERT, UPDATE, DELETE ON dbo.Candidatos TO app_votaciones;
 -- Votos
-GRANT SELECT, INSERT, UPDATE, DELETE ON dbo.Votos TO app_votaciones;
+GRANT SELECT, INSERT ON dbo.Votos TO app_votaciones;
+-- SesionTemporal
+GRANT SELECT, INSERT, UPDATE, DELETE ON dbo.SesionTemporal TO app_votaciones;

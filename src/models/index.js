@@ -19,6 +19,7 @@ Candidato.belongsTo(Eleccion, { foreignKey: 'EleccionID' });
 Administrador.hasOne(AdminCredencial, { foreignKey: 'AdminID' });
 AdminCredencial.belongsTo(Administrador, { foreignKey: 'AdminID' });
 
+const SesionTemporal = require("./SesionTemporal");
 
 module.exports = {
   sequelize,
@@ -27,5 +28,6 @@ module.exports = {
   AdminCredencial,
   Eleccion,
   Candidato,
-  Voto
+  Voto,
+  SesionTemporal
 };

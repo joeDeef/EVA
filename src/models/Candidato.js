@@ -7,6 +7,7 @@ const Candidato = sequelize.define("Candidato", {
   EleccionID: { type: DataTypes.INTEGER, allowNull: false },
   Nombre: { type: DataTypes.STRING(150), allowNull: false },
   Descripcion: { type: DataTypes.STRING(300) },
+  Partido: { type: DataTypes.STRING(100) },
   Activo: { type: DataTypes.BOOLEAN, defaultValue: true },
   FechaCreacion: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
 }, {
