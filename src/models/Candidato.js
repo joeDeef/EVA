@@ -10,6 +10,7 @@ const Candidato = sequelize.define("Candidato", {
   Partido: { type: DataTypes.STRING(100) },
   Activo: { type: DataTypes.BOOLEAN, defaultValue: true },
   FechaCreacion: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
+  ImagenURL: { type: DataTypes.STRING(300) },
 }, {
   tableName: "Candidatos",
   timestamps: false,

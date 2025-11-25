@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const path = require('path');
 
 const validarCedula = require('../middleware/validarCedula');
 const voterController = require('../controllers/voterController');

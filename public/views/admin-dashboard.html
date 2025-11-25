@@ -5,18 +5,7 @@
   <meta charset="UTF-8">
   <title>Dashboard Administrativo - SEVOTEC</title>
   <link rel="stylesheet" href="/css/styles.css">
-  <style>
-    .dashboard-grid { display: grid; grid-template-columns: 250px 1fr; min-height: 100vh; }
-    .sidebar { background: white; border-right: 1px solid var(--border); padding: 2rem 1rem; }
-    .main-content { padding: 2rem; background: #f8fafc; }
-    .stat-card { background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-    .nav-link { display: block; padding: 0.75rem 1rem; color: var(--muted-foreground); text-decoration: none; border-radius: 6px; margin-bottom: 0.5rem; cursor: pointer;}
-    .nav-link:hover, .nav-link.active { background: var(--primary); color: white; }
-    .section { display: none; }
-    .section.active { display: block; }
-    table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
-    th, td { padding: 1rem; text-align: left; border-bottom: 1px solid var(--border); }
-  </style>
+  <link rel="stylesheet" href="/css/admin-dashboard.css">
 </head>
 <body>
   <div class="dashboard-grid">
@@ -27,7 +16,7 @@
         <a class="nav-link active" onclick="showSection('resumen')">Resumen General</a>
         <a class="nav-link" onclick="showSection('elecciones')">Crear Elecciones</a>
         <a class="nav-link" onclick="showSection('admins')">Gestión Admins</a>
-        <a href="/" class="nav-link" style="margin-top: 2rem; background: #fee2e2; color: #dc2626;">Cerrar Sesión</a>
+        <a href="/" class="nav-link logout">Cerrar Sesión</a>
       </nav>
     </aside>
 
@@ -37,18 +26,18 @@
       <!-- SECCIÓN 1: RESUMEN / ESTADÍSTICAS -->
       <div id="resumen" class="section active">
         <h2 style="margin-bottom: 1.5rem;">Estadísticas en Tiempo Real</h2>
-        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
+        <div class="stats-grid">
           <div class="stat-card">
-            <h4 class="text-muted">Total Votantes Registrados</h4>
-            <p id="totalVoters" style="font-size: 2rem; font-weight: bold;">Cargando...</p>
+            <h4>Total Votantes Registrados</h4>
+            <p id="totalVoters">Cargando...</p>
           </div>
           <div class="stat-card">
-            <h4 class="text-muted">Participación Total</h4>
-            <p id="participationRate" style="font-size: 2rem; font-weight: bold; color: var(--success);">0%</p>
+            <h4>Participación Total</h4>
+            <p id="participationRate" style="color: var(--success);">0%</p>
           </div>
           <div class="stat-card">
-            <h4 class="text-muted">Elecciones Activas</h4>
-            <p id="activeElections" style="font-size: 2rem; font-weight: bold;">0</p>
+            <h4>Elecciones Activas</h4>
+            <p id="activeElections">0</p>
           </div>
         </div>
       </div>
@@ -58,32 +47,32 @@
         <h2>Gestión de Procesos Electorales</h2>
         <div class="card" style="margin-top: 1rem; padding: 2rem;">
           <form id="createElectionForm">
-            <div style="margin-bottom: 1rem;">
+            <div class="form-group">
               <label>Nombre del Proceso (Ej: Presidenciales 2025 o Referéndum)</label>
-              <input type="text" name="nombre" class="form-control" style="width: 100%; padding: 0.5rem;" required>
+              <input type="text" name="nombre" class="form-control" required>
             </div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
-              <div>
+            <div class="form-grid">
+              <div class="form-group">
                 <label>Fecha Inicio</label>
-                <input type="datetime-local" name="fechaInicio" style="width: 100%; padding: 0.5rem;" required>
+                <input type="datetime-local" name="fechaInicio" class="form-control" required>
               </div>
-              <div>
+              <div class="form-group">
                 <label>Fecha Fin</label>
-                <input type="datetime-local" name="fechaFin" style="width: 100%; padding: 0.5rem;" required>
+                <input type="datetime-local" name="fechaFin" class="form-control" required>
               </div>
             </div>
             
-            <div style="margin-bottom: 1rem;">
+            <div class="form-group">
               <label>Tipo de Elección</label>
-              <select name="tipo" style="width: 100%; padding: 0.5rem;">
+              <select name="tipo" class="form-control">
                 <option value="candidatos">Elección de Candidatos</option>
                 <option value="normativa">Aprobación de Normativa (Si/No)</option>
               </select>
             </div>
 
-            <div style="margin-bottom: 1rem;">
+            <div class="form-group">
               <label>Opciones / Candidatos (Separados por coma)</label>
-              <input type="text" name="candidatos" placeholder="Ej: Lista A, Lista B, Nulo" style="width: 100%; padding: 0.5rem;" required>
+              <input type="text" name="candidatos" placeholder="Ej: Lista A, Lista B, Nulo" class="form-control" required>
             </div>
 
             <button type="submit" class="btn btn-primary">Crear Proceso Electoral</button>
@@ -93,18 +82,18 @@
 
       <!-- SECCIÓN 3: CRUD ADMINS -->
       <div id="admins" class="section">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div class="section-header">
           <h2>Administradores del Sistema</h2>
           <button class="btn btn-outline" onclick="document.getElementById('addAdminForm').style.display='block'">+ Nuevo Admin</button>
         </div>
 
         <!-- Formulario oculto para agregar admin -->
-        <div id="addAdminForm" class="card" style="display: none; margin-top: 1rem; padding: 1rem; background: #f0f9ff;">
+        <div id="addAdminForm" class="card card-highlight hidden" style="margin-top: 1rem; padding: 1rem;">
           <h4>Registrar Nuevo Administrador</h4>
-          <form id="newAdminForm" style="display: flex; gap: 1rem;">
-            <input type="text" placeholder="Nombres" name="nombres" required>
-            <input type="email" placeholder="Correo" name="correo" required>
-            <input type="password" placeholder="Contraseña Temporal" name="password" required>
+          <form id="newAdminForm" class="form-inline">
+            <input type="text" placeholder="Nombres" name="nombres" class="form-control" required>
+            <input type="email" placeholder="Correo" name="correo" class="form-control" required>
+            <input type="password" placeholder="Contraseña Temporal" name="password" class="form-control" required>
             <button type="submit" class="btn btn-primary">Guardar</button>
           </form>
         </div>

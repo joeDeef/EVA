@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const path = require("path");
+const candidatosController = require("../controllers/candidatosController");
 
 router.get("/voter-login", (req, res) => {
   res.sendFile(
@@ -22,7 +23,6 @@ router.get("/voting-instructions", (req, res) => {
 });
 
 router.get("/voting", async (req, res) => {
-  const candidatosController = require("../controllers/candidatosController");
   const candidatos = await candidatosController.getCandidatos();
   res.render("voting", { candidatos });
 });

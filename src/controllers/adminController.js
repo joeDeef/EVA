@@ -7,6 +7,7 @@ const adminController = {
     // 1. RENDERIZAR VISTAS (CORREGIDO)
     // =========================================================
     viewLogin: (req, res) => {
+        console.log('Rendering admin login view');
         // Corrección: Apuntar a public/views
         const viewPath = path.join(__dirname, '../../public/views', 'admin-login.html');
         res.sendFile(viewPath);

@@ -17,7 +17,7 @@ const sequelize = new Sequelize(
   DatabasePassword,
   {
     host: "localhost",          // Dirección del servidor de base de datos
-    port: 1433,                // Puerto por defecto de SQL Server es 14333 (Docker)
+    port: 14333,                // Puerto por defecto de SQL Server es 14333 (Docker)
     dialect: "mssql",           // Usando SQL Server
     dialectOptions: {
       options: {

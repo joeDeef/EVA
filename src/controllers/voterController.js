@@ -1,11 +1,6 @@
-const Usuario = require("../models/Usuario");
-const SesionTemporal = require("../models/SesionTemporal");
-const Voto = require("../models/Voto");
+const { Usuario, SesionTemporal, Voto} = require("../models");
 const { Sequelize } = require("sequelize");
-
-const { sendOtp, verifyOtp } = require("../utils/supabaseEmail");
-const maskEmail = require("../utils/maskEmail");
-const { obtenerEleccionActiva } = require("../utils/elecciónActiva");
+const { sendOtp, verifyOtp, maskEmail, obtenerEleccionActiva } = require("../utils");
 
 exports.authStep1 = async (req, res) => {
   const { cedula, codigoDactilar } = req.body;
