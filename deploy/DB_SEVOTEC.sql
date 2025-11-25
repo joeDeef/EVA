@@ -138,9 +138,6 @@ GO
 ============================================ */
 INSERT INTO dbo.Administradores (Nombres, Correo) VALUES
 ('Super Admin','admin@sevotec.ec'),
-('Issac de la Cadena','issac.delacadena@gmail.com'),
-('Joel Defaz','joel.defaz@gmail.com'),
-('Santiago Murillo','santiago.murillo@gmail.com')
 GO
 
 /* ============================================
@@ -149,9 +146,6 @@ GO
 INSERT INTO dbo.AdminCredenciales (AdminID, HashPassword, Salt)
 VALUES
 (1,'admin123','salt1'), 
-(2,'issac2025','salt2'),
-(3,'joel2025','salt3'),
-(4,'santiago2025','salt4')
 GO
 
 /* ============================================
