@@ -89,7 +89,6 @@
         <div class="tabs">
           <ul class="tab-list" style="display: flex; border-bottom: 1px solid var(--border); margin: 0; padding: 0; list-style: none;">
             <li><button class="tab-button active" data-tab="admins" style="padding: 1rem 2rem; border: none; background: none; cursor: pointer; border-bottom: 2px solid var(--primary); color: var(--primary); font-weight: 600;">Administradores</button></li>
-            <li><button class="tab-button" data-tab="candidates" style="padding: 1rem 2rem; border: none; background: none; cursor: pointer; color: var(--muted-foreground);">Candidatos</button></li>
             <li><button class="tab-button" data-tab="citizens" style="padding: 1rem 2rem; border: none; background: none; cursor: pointer; color: var(--muted-foreground);">Ciudadanos Registrados</button></li>
           </ul>
         </div>
@@ -142,87 +141,6 @@
             </thead>
             <tbody id="adminsTableBody">
               <!-- Se llena dinámicamente desde la API -->
-            </tbody>
-          </table>
-        </div>
-
-        <!-- Candidates Tab -->
-        <div class="tab-content" id="candidates" style="padding: 2rem; display: none;">
-          <div class="section-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
-            <h2 style="font-size: 1.5rem; font-weight: 600; margin: 0;">Gestión de Procesos Electorales</h2>
-            <button class="btn btn-primary" onclick="toggleCreateElectionForm()">
-              <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-              </svg>
-              Crear Proceso Electoral
-            </button>
-          </div>
-
-          <!-- Formulario para crear proceso electoral -->
-          <div id="createElectionForm" class="card card-highlight hidden" style="margin-bottom: 2rem; padding: 1.5rem; background: #f0f9ff; border: 1px solid #0ea5e9;">
-            <h4 style="margin-bottom: 1rem;">Nuevo Proceso Electoral</h4>
-            <form id="newElectionForm">
-              <div class="form-group">
-                <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Nombre del Proceso (Ej: Presidenciales 2025 o Referéndum)</label>
-                <input type="text" name="nombre" class="form-control" required>
-              </div>
-              <div class="form-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                <div class="form-group">
-                  <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Fecha Inicio</label>
-                  <input type="datetime-local" name="fechaInicio" class="form-control" required>
-                </div>
-                <div class="form-group">
-                  <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Fecha Fin</label>
-                  <input type="datetime-local" name="fechaFin" class="form-control" required>
-                </div>
-              </div>
-              
-              <div class="form-group">
-                <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Tipo de Elección</label>
-                <select name="tipo" class="form-control">
-                  <option value="candidatos">Elección de Candidatos</option>
-                  <option value="normativa">Aprobación de Normativa (Si/No)</option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Opciones / Candidatos (Separados por coma)</label>
-                <input type="text" name="candidatos" placeholder="Ej: Lista A, Lista B, Nulo" class="form-control" required>
-              </div>
-
-              <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
-                <button type="submit" class="btn btn-primary">Crear Proceso Electoral</button>
-                <button type="button" class="btn btn-outline" onclick="toggleCreateElectionForm()">Cancelar</button>
-              </div>
-            </form>
-          </div>
-
-          <!-- Lista de procesos electorales existentes -->
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Proceso Electoral</th>
-                <th>Tipo</th>
-                <th>Fecha Inicio</th>
-                <th>Fecha Fin</th>
-                <th>Estado</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody id="electionsTableBody">
-              <tr>
-                <td>Elecciones Presidenciales 2025</td>
-                <td><span class="badge badge-primary">Candidatos</span></td>
-                <td>2025-12-01 08:00</td>
-                <td>2025-12-01 18:00</td>
-                <td><span class="badge badge-warning">Programada</span></td>
-                <td>
-                  <div class="action-buttons">
-                    <button class="btn btn-sm btn-outline">Editar</button>
-                    <button class="btn btn-sm btn-success">Activar</button>
-                  </div>
-                </td>
-              </tr>
             </tbody>
           </table>
         </div>
