@@ -137,7 +137,7 @@ GO
    INSERTS: ADMINISTRADORES
 ============================================ */
 INSERT INTO dbo.Administradores (Nombres, Correo) VALUES
-('Super Admin','admin@sevotec.ec'),
+('Super Admin','admin@sevotec.ec')
 GO
 
 /* ============================================
@@ -145,7 +145,7 @@ GO
 ============================================ */
 INSERT INTO dbo.AdminCredenciales (AdminID, HashPassword, Salt)
 VALUES
-(1,'$2b$12$uoI3BPaiWCaQhRsCTfkgeurBpzM/AtvBSf87wzHahg6AAP5IrRKh.','salt1'), 
+(1,'$2b$12$uoI3BPaiWCaQhRsCTfkgeurBpzM/AtvBSf87wzHahg6AAP5IrRKh.','salt1')
 GO
 
 /* ============================================
