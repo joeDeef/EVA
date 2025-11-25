@@ -15,4 +15,7 @@ router.post('/elections', adminController.createElection);
 router.get('/users', adminController.getAdmins);
 router.post('/users', adminController.createAdmin);
 
+//REcuperar contrasela
+router.get('/password-recovery', adminController.viewForgotPassword);
+
 module.exports = router;

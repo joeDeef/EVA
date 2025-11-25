@@ -11,6 +11,7 @@ const { Sequelize } = require("sequelize");
 const PasswordUtils = require("../utils/passwordUtils");
 
 const path = require("path"); // Importante importar path
+const { sendOtp , verifyOtp} = require("../utils");
 
 const adminController = {
   viewLogin: (req, res) => {
@@ -34,6 +35,16 @@ const adminController = {
     res.sendFile(viewPath);
   },
 
+  viewForgotPassword: (req, res) => {
+    // Corrección: Apuntar a public/views
+    const viewPath = path.join(
+      __dirname,
+      "../../public/views",
+      "admin-password-recovery.html"
+    );
+    res.sendFile(viewPath);
+  },
+
   login: async (req, res) => {
     try {
       const { correo, password } = req.body;
@@ -52,7 +63,10 @@ const adminController = {
         return res.status(401).json({ message: "Credenciales no encontradas" });
 
       // Verificar contraseña usando bcrypt con utilidades
-      const match = await PasswordUtils.verifyPassword(password, creds.HashPassword);
+      const match = await PasswordUtils.verifyPassword(
+        password,
+        creds.HashPassword
+      );
 
       if (!match)
         return res.status(401).json({ message: "Contraseña incorrecta" });
@@ -155,19 +169,19 @@ const adminController = {
 
       // Validar que la contraseña tenga al menos 6 caracteres
       if (!password || password.length < 6) {
-        return res.status(400).json({ 
-          message: "La contraseña debe tener al menos 6 caracteres" 
+        return res.status(400).json({
+          message: "La contraseña debe tener al menos 6 caracteres",
         });
       }
 
       // Verificar si el correo ya existe
-      const existingAdmin = await Administrador.findOne({ 
-        where: { Correo: correo } 
+      const existingAdmin = await Administrador.findOne({
+        where: { Correo: correo },
       });
-      
+
       if (existingAdmin) {
-        return res.status(400).json({ 
-          message: "Ya existe un administrador con este correo" 
+        return res.status(400).json({
+          message: "Ya existe un administrador con este correo",
         });
       }
 
@@ -179,16 +193,16 @@ const adminController = {
 
       // Cifrar la contraseña con bcrypt usando utilidades
       const hashedPassword = await PasswordUtils.hashPassword(password);
-      
+
       await AdminCredencial.create({
         AdminID: newAdmin.AdminID,
         HashPassword: hashedPassword,
         FechaCreacion: Sequelize.literal("GETDATE()"),
       });
 
-      res.json({ 
+      res.json({
         message: "Administrador creado exitosamente",
-        adminId: newAdmin.AdminID 
+        adminId: newAdmin.AdminID,
       });
     } catch (error) {
       console.error("Error creating admin:", error);
@@ -230,15 +244,15 @@ const adminController = {
       // Verificar si el correo ya existe en otro administrador
       if (correo && correo !== existingAdmin.Correo) {
         const emailExists = await Administrador.findOne({
-          where: { 
+          where: {
             Correo: correo,
-            AdminID: { [Sequelize.Op.ne]: id } // Excluir el admin actual
-          }
+            AdminID: { [Sequelize.Op.ne]: id }, // Excluir el admin actual
+          },
         });
-        
+
         if (emailExists) {
-          return res.status(400).json({ 
-            message: "Ya existe otro administrador con este correo" 
+          return res.status(400).json({
+            message: "Ya existe otro administrador con este correo",
           });
         }
       }
@@ -247,7 +261,7 @@ const adminController = {
       const updateData = {};
       if (nombres) updateData.Nombres = nombres;
       if (correo) updateData.Correo = correo;
-      
+
       const [updatedRows] = await Administrador.update(updateData, {
         where: { AdminID: id },
       });
@@ -256,14 +270,14 @@ const adminController = {
       if (password && password.trim() !== "") {
         // Validar longitud de contraseña
         if (password.length < 6) {
-          return res.status(400).json({ 
-            message: "La contraseña debe tener al menos 6 caracteres" 
+          return res.status(400).json({
+            message: "La contraseña debe tener al menos 6 caracteres",
           });
         }
 
         // Cifrar la nueva contraseña usando utilidades
         const hashedPassword = await PasswordUtils.hashPassword(password);
-        
+
         await AdminCredencial.update(
           { HashPassword: hashedPassword },
           { where: { AdminID: id } }
@@ -332,6 +346,62 @@ const adminController = {
   logout: (req, res) => {
     res.redirect("/");
   },
+
+  sendRecuperationCode: async (req, res) => {
+    try {
+      const { email } = req.body;
+      const admin = await Administrador.findOne({ where: { Correo: email } });
+      if (!admin) {
+        return res.status(404).json({
+          message:
+            "No se pudo enviar el código. Verifique que el correo esté registrado.",
+        });
+      }
+      console.log(`Enviando código de recuperación a ${email}`);
+
+      await sendOtp(email);
+      res.status(200).json({ message: "Código de recuperación enviado" });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Error interno al enviar el código" });
+    }
+  },
+  verifyResetCode: async (req, res) => {
+    try {
+      const { email, code } = req.body;
+      console.log(`Verificando código ${code} para ${email}`);
+      const isValid = await verifyOtp(code, email);
+      if (isValid) {
+        res.status(200).json({ message: "Código verificado correctamente" });
+      } else {
+        res.status(400).json({ message: "Código de verificación incorrecto" });
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Error interno al verificar el código" });
+    }
+  },
+
+  resetPassword: async (req, res) => {
+    try {
+      const { email, newPassword } = req.body;
+
+      const admin = await Administrador.findOne({ where: { Correo: email } });
+      if (!admin) {
+        return res.status(404).json({ message: "Administrador no encontrado" });
+      }
+      const hashedPassword = await PasswordUtils.hashPassword(newPassword);
+
+      await AdminCredencial.update(
+        { HashPassword: hashedPassword },
+        { where: { AdminID: admin.AdminID } }
+      );
+      res.status(200).json({ message: "Contraseña restablecida exitosamente" });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Error interno al restablecer la contraseña" });
+    }
+  }
 };
 
 module.exports = adminController;

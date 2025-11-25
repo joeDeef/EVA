@@ -51,7 +51,7 @@ export class DashboardInit {
     if (logoutBtn) {
       logoutBtn.addEventListener('click', () => {
         if (confirm('¿Está seguro que desea cerrar sesión?')) {
-          window.location.href = '/admin-login';
+          window.location.href = '/';
         }
       });
     }
