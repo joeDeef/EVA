@@ -71,6 +71,10 @@
               required
               autocomplete="current-password"
             >
+            <div style="margin-top: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+              <input type="checkbox" id="showPassword" onchange="togglePasswordVisibility('password', this.checked)" style="margin: 0;">
+              <label for="showPassword" style="margin: 0; font-size: 0.875rem; cursor: pointer;">Mostrar contraseña</label>
+            </div>
           </div>
 
           <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">
@@ -82,7 +86,7 @@
         </form>
 
         <div class="mt-6 text-center">
-          <a href="#" style="color: var(--primary); text-decoration: none; font-size: 0.875rem;">
+          <a href="/admin/password-recovery" style="color: var(--primary); text-decoration: none; font-size: 0.875rem;">
             ¿Olvidó su contraseña?
           </a>
         </div>
@@ -175,6 +179,12 @@
     document.getElementById('password').addEventListener('input', () => {
       document.getElementById('error-alert').classList.add('hidden');
     });
+
+    // Función para mostrar/ocultar contraseña con checkbox
+    function togglePasswordVisibility(inputId, show) {
+      const input = document.getElementById(inputId);
+      input.type = show ? 'text' : 'password';
+    }
   </script>
 </body>
 </html>

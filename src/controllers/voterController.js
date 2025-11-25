@@ -56,7 +56,7 @@ exports.sendVoterCode = async (req, res) => {
   const { token } = req.body;
 
   try {
-    /*
+    
     const session = await SesionTemporal.findOne({ where: { token } });
     if (!session) {
       return res.status(404).json({
@@ -64,7 +64,7 @@ exports.sendVoterCode = async (req, res) => {
         message: "Sesión temporal no encontrada.",
       });
     }
-    sendOtp(session.email)*/
+    sendOtp(session.email)
 
     return res.status(200).json({
       success: true,
@@ -84,7 +84,7 @@ exports.authStep2 = async (req, res) => {
   const { codigoEmail, token } = req.body;
 
   try {
-    /*
+    
     const session = await SesionTemporal.findOne({ where: { token } });
     if (!session) {
       return res.status(404).json({
@@ -99,8 +99,7 @@ exports.authStep2 = async (req, res) => {
         message: "Código de email inválido.",
       });
     }
-
-    */
+    
     if (true) {
       //verifyOtp(codigoEmail, session.email)){
       return res.status(200).json({

@@ -122,7 +122,11 @@
               </div>
               <div style="flex: 1;">
                 <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Contraseña</label>
-                <input type="password" placeholder="Contraseña Temporal" name="password" class="form-control" required>
+                <input type="password" placeholder="Contraseña Temporal" name="password" id="inlineAdminPassword" class="form-control" required>
+                <div style="margin-top: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                  <input type="checkbox" id="showInlineAdminPassword" onchange="togglePasswordVisibility('inlineAdminPassword', this.checked)" style="margin: 0;">
+                  <label for="showInlineAdminPassword" style="margin: 0; font-size: 0.75rem; cursor: pointer;">Mostrar contraseña</label>
+                </div>
               </div>
               <button type="submit" class="btn btn-primary">Crear Administrador</button>
               <button type="button" class="btn btn-outline" onclick="toggleAddAdminForm()">Cancelar</button>
@@ -256,7 +260,11 @@
         </div>
         <div class="form-group" style="margin-bottom: 1.5rem;">
           <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Contraseña Temporal</label>
-          <input type="password" name="password" class="form-control" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px;">
+          <input type="password" name="password" id="createAdminPassword" class="form-control" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px;">
+          <div style="margin-top: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+            <input type="checkbox" id="showCreateAdminPassword" onchange="togglePasswordVisibility('createAdminPassword', this.checked)" style="margin: 0;">
+            <label for="showCreateAdminPassword" style="margin: 0; font-size: 0.875rem; cursor: pointer;">Mostrar contraseña</label>
+          </div>
         </div>
         <div style="display: flex; gap: 1rem; justify-content: flex-end;">
           <button type="button" onclick="closeCreateAdminModal()" class="btn btn-outline">Cancelar</button>
@@ -288,6 +296,10 @@
         <div class="form-group" style="margin-bottom: 1.5rem;">
           <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Nueva Contraseña (opcional)</label>
           <input type="password" name="password" id="editAdminPassword" class="form-control" placeholder="Dejar en blanco para mantener actual" style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px;">
+          <div style="margin-top: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+            <input type="checkbox" id="showEditAdminPassword" onchange="togglePasswordVisibility('editAdminPassword', this.checked)" style="margin: 0;">
+            <label for="showEditAdminPassword" style="margin: 0; font-size: 0.875rem; cursor: pointer;">Mostrar contraseña</label>
+          </div>
         </div>
         <div style="display: flex; gap: 1rem; justify-content: flex-end;">
           <button type="button" onclick="closeEditAdminModal()" class="btn btn-outline">Cancelar</button>
@@ -299,5 +311,12 @@
   </div>
 
   <script type="module" src="/js/admin-dashboard.js"></script>
+  <script>
+    // Función para mostrar/ocultar contraseña con checkbox
+    function togglePasswordVisibility(inputId, show) {
+      const input = document.getElementById(inputId);
+      input.type = show ? 'text' : 'password';
+    }
+  </script>
 </body>
 </html>

@@ -37,4 +37,8 @@ router.post('/admin/users', adminController.createAdmin);
 router.get('/citizens/search/:cedula', adminController.searchCitizen);
 router.put('/citizens/update/:id', adminController.updateCitizen);
 
+router.post('/admin/forgot-password', adminController.sendRecuperationCode);
+router.post('/admin/verify-reset-code', adminController.verifyResetCode);
+router.post('/admin/reset-password', adminController.resetPassword);
+
 module.exports = router;
