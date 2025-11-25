@@ -6,6 +6,19 @@ const AdminCredencial = require("./AdminCredencial");
 const Eleccion = require("./Eleccion");
 const Candidato = require("./Candidato");
 const Voto = require("./Voto");
+
+Usuario.hasMany(Voto, { foreignKey: 'UsuarioID' });
+Voto.belongsTo(Usuario, { foreignKey: 'UsuarioID' });
+
+Eleccion.hasMany(Voto, { foreignKey: 'EleccionID' });
+Voto.belongsTo(Eleccion, { foreignKey: 'EleccionID' });
+
+Eleccion.hasMany(Candidato, { foreignKey: 'EleccionID' });
+Candidato.belongsTo(Eleccion, { foreignKey: 'EleccionID' });
+
+Administrador.hasOne(AdminCredencial, { foreignKey: 'AdminID' });
+AdminCredencial.belongsTo(Administrador, { foreignKey: 'AdminID' });
+
 const SesionTemporal = require("./SesionTemporal");
 
 module.exports = {
