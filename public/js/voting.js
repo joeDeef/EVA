@@ -8,6 +8,98 @@ const timerContainer = document.getElementById('timer-container');
 let selectedCandidate = null;
 
 // =====================================================
+//      FUNCIONES DE ENVÍO DE VOTO
+// =====================================================
+
+/**
+ * Envía el voto al servidor
+ * @param {string} candidateId - ID del candidato (o null para voto en blanco)
+ */
+async function submitVote(candidateId) {
+  try {
+    // Si no hay candidato seleccionado, usar ID 5 para voto en blanco
+    const voteId = candidateId || '5';
+    
+    const response = await fetch('/api/vote', {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${sessionStorage.getItem('voter-token')}`
+      },
+      body: JSON.stringify({ candidateId: voteId })
+    });
+    
+    const data = await response.json();
+    
+    if (data.success) {
+      sessionStorage.removeItem('selected-candidate');
+      sessionStorage.removeItem('voting-start-time');
+      window.location.href = '/vote-success';
+    } else {
+      alert('Error al registrar el voto. Intente nuevamente.');
+    }
+  } catch (error) {
+    alert('Error de conexión. Intente nuevamente.');
+  }
+}
+
+/**
+ * Maneja el voto automático cuando el tiempo se agota
+ */
+async function handleAutomaticVote() {
+  // Si hay un candidato seleccionado, votar por él
+  // Si no hay candidato seleccionado, votar en blanco (ID 5)
+  const candidateToVote = selectedCandidate || null;
+  
+  // Ocultar modal si está abierto
+  const modal = document.getElementById('confirmation-modal');
+  if (modal && modal.style.display === 'flex') {
+    hideConfirmationModal();
+  }
+  
+  // Mostrar mensaje indicando que se está procesando el voto automáticamente
+  const body = document.body;
+  const overlay = document.createElement('div');
+  overlay.style.cssText = `
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    color: white;
+    font-size: 1.5rem;
+    text-align: center;
+  `;
+  
+  if (candidateToVote) {
+    const candidate = candidates[candidateToVote];
+    overlay.innerHTML = `
+      <div>
+        <div style="margin-bottom: 1rem;">⏰ Tiempo agotado</div>
+        <div>Registrando su voto por: <strong>${candidate.name}</strong></div>
+      </div>
+    `;
+  } else {
+    overlay.innerHTML = `
+      <div>
+        <div style="margin-bottom: 1rem;">⏰ Tiempo agotado</div>
+        <div>Registrando <strong>voto en blanco</strong></div>
+      </div>
+    `;
+  }
+  
+  body.appendChild(overlay);
+  
+  // Enviar el voto automáticamente
+  await submitVote(candidateToVote);
+}
+
+// =====================================================
 //      ⏳ CRONÓMETRO PERSISTENTE (5 minutos)
 // =====================================================
 
@@ -27,8 +119,7 @@ let timeLeft = TIEMPO_MAX - Math.floor((ahora - inicio) / 1000);
 // Si el usuario ya excedió el tiempo antes de cargar la página
 if (timeLeft <= 0) {
   sessionStorage.removeItem("voting-start-time");
-  alert('Tiempo agotado. Su sesión ha expirado.');
-  window.location.href = '/';
+  handleAutomaticVote();
 }
 
 // Actualizar el display inicial
@@ -42,8 +133,9 @@ const timerInterval = setInterval(() => {
   if (timeLeft <= 0) {
     clearInterval(timerInterval);
     sessionStorage.removeItem("voting-start-time");
-    alert('Tiempo agotado. Su sesión ha expirado.');
-    window.location.href = '/';
+    
+    // Votar automáticamente cuando el tiempo se agota
+    handleAutomaticVote();
     return;
   }
 
@@ -189,27 +281,5 @@ finalConfirmation.addEventListener('change', () => {
 modalConfirmBtn.addEventListener('click', async () => {
   if (!finalConfirmation.checked) return;
   
-  try {
-    const response = await fetch('/api/vote', {
-      method: 'POST',
-      headers: { 
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${sessionStorage.getItem('voter-token')}`
-      },
-      body: JSON.stringify({ candidateId: selectedCandidate })
-    });
-    
-    const data = await response.json();
-    
-    if (data.success) {
-      sessionStorage.removeItem('selected-candidate');
-      sessionStorage.removeItem('voting-start-time');
-      clearInterval(timerInterval);
-      window.location.href = '/vote-success';
-    } else {
-      alert('Error al registrar el voto. Intente nuevamente.');
-    }
-  } catch (error) {
-    alert('Error de conexión. Intente nuevamente.');
-  }
+  await submitVote(selectedCandidate);
 });

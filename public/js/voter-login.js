@@ -92,7 +92,7 @@ function goToStep2() {
   const maskedEmail = sessionStorage.getItem('masked-email') || '******@dominio.xxx';
   document.getElementById('masked-email').textContent = maskedEmail;
 
-  document.getElementById('code-digits').textContent = 6;
+  document.getElementById('code-digits').textContent = 8;
 
   // Mostrar botón de enviar código y ocultar área de entrada
   document.getElementById('send-code-btn').classList.remove('hidden');

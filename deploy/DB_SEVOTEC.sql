@@ -145,7 +145,7 @@ GO
 ============================================ */
 INSERT INTO dbo.AdminCredenciales (AdminID, HashPassword, Salt)
 VALUES
-(1,'admin123','salt1'), 
+(1,'$2b$12$uoI3BPaiWCaQhRsCTfkgeurBpzM/AtvBSf87wzHahg6AAP5IrRKh.','salt1'), 
 GO
 
 /* ============================================
@@ -162,10 +162,10 @@ GO
 ============================================ */
 INSERT INTO dbo.Candidatos (EleccionID, Nombre, Descripcion, Partido)
 VALUES
-(1,'Pregunta A','Bases Militares','Partido A'),
-(1,'Pregunta B','Reelección Presidencial','Partido B'),
-(1,'Pregunta C','Circo','Partido C'),
-(1,'Pregunta D','Constitución','Partido D'),
+(1,'Alan Brito Delago','DEP','Partido izq'),
+(1,'Susana Horia','Movimiento Ciudadano','Partido Der'),
+(1,'Armando Esteban Quito','Movimiento Libertad','Partido Oposiciòn'),
+(1,'Jose Delgado','Movimiento Democràtico','Partido Democratico'),
 (1,'Voto Blanco','Sin elección','Ninguno'),
 (1,'Voto Nulo','Ninguno','Ninguno'),
 (2,'Candidato X','Plan 1','Partido X'),
