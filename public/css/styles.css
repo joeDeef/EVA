@@ -628,3 +628,9 @@ h1, h2, h3, h4, h5, h6 {
     height: 24px;
   }
 }
+
+/* Live Indicator */
+.live-indicator{width:12px;height:12px;background:#ef4444;border-radius:50%;position:relative;animation:live-pulse 2s cubic-bezier(.4,0,.6,1) infinite}
+.live-indicator::before{content:'';position:absolute;inset:0;background:#ef4444;border-radius:50%;animation:live-ping 2s cubic-bezier(0,0,.2,1) infinite}
+@keyframes live-pulse{0%,100%{opacity:1}50%{opacity:.5}}
+@keyframes live-ping{0%{transform:scale(1);opacity:1}75%,100%{transform:scale(2);opacity:0}}

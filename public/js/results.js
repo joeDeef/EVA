@@ -81,13 +81,6 @@ async function loadResults() {
   if (!currentElectionId) return;
 
   try {
-    // Animar indicador de actualización
-    const indicator = document.getElementById('live-indicator');
-    indicator.style.animation = 'none';
-    setTimeout(() => {
-      indicator.style.animation = 'pulse 2s infinite';
-    }, 10);
-
     const response = await fetch(`/api/results/${currentElectionId}`);
     const data = await response.json();
 
