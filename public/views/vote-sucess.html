@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voto Exitoso - Sistema de Votación</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <main class="flex-center" style="min-height: 100vh; background: linear-gradient(135deg, var(--background) 0%, hsl(142, 71%, 98%) 100%); padding: 2rem;">
+    <div class="container" style="max-width: 800px;">
+      <div class="card animate-fade-in" style="padding: 3rem 2rem; text-align: center;">
+        <div style="width: 6rem; height: 6rem; background: hsl(142, 71%, 95%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 2rem;">
+          <svg style="width: 4rem; height: 4rem; color: var(--success);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+        </div>
+
+        <h1 style="font-size: 2.5rem; margin-bottom: 1rem; color: var(--foreground);">
+          ¡Voto Registrado con Éxito!
+        </h1>
+
+        <p style="font-size: 1.25rem; color: var(--muted-foreground); margin-bottom: 3rem;">
+          Su voto ha sido registrado de forma segura y anónima
+        </p>
+
+        <!-- Receipt -->
+        <div class="card" style="background: var(--muted); padding: 2rem; margin-bottom: 2rem; text-align: left;">
+          <h2 style="text-align: center; font-size: 1.125rem; margin-bottom: 1.5rem; font-weight: 600;">
+            Comprobante de Votación
+          </h2>
+
+          <div class="grid grid-cols-2" style="gap: 1.5rem; margin-bottom: 1.5rem;">
+            <div class="flex gap-3" style="align-items: center;">
+              <svg class="icon" style="color: var(--primary);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+              </svg>
+              <div>
+                <p style="font-size: 0.875rem; color: var(--muted-foreground);">Fecha</p>
+                <p style="font-weight: 600;" id="vote-date"></p>
+              </div>
+            </div>
+
+            <div class="flex gap-3" style="align-items: center;">
+              <svg class="icon" style="color: var(--primary);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              <div>
+                <p style="font-size: 0.875rem; color: var(--muted-foreground);">Hora</p>
+                <p style="font-weight: 600;" id="vote-time"></p>
+              </div>
+            </div>
+          </div>
+
+          <div style="padding-top: 1rem; border-top: 1px solid var(--border); text-align: center;">
+            <p style="font-size: 0.75rem; color: var(--muted-foreground);">
+              Folio: <span id="vote-folio" style="font-weight: 600;"></span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Security Information -->
+        <div class="card" style="background: hsl(215, 85%, 98%); border: 1px solid hsl(215, 85%, 90%); padding: 1.5rem; margin-bottom: 2rem; text-align: left;">
+          <div style="display: grid; gap: 1rem;">
+            <div class="flex gap-3" style="align-items: flex-start;">
+              <svg class="icon" style="color: var(--primary); flex-shrink: 0; margin-top: 0.125rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              <p style="font-size: 0.875rem;">Su voto ha sido encriptado y almacenado de forma segura</p>
+            </div>
+            <div class="flex gap-3" style="align-items: flex-start;">
+              <svg class="icon" style="color: var(--primary); flex-shrink: 0; margin-top: 0.125rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              <p style="font-size: 0.875rem;">La identidad del votante y la selección están completamente separadas</p>
+            </div>
+            <div class="flex gap-3" style="align-items: flex-start;">
+              <svg class="icon" style="color: var(--primary); flex-shrink: 0; margin-top: 0.125rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              <p style="font-size: 0.875rem;">Su cuenta ha sido marcada como "ya votó" y no podrá votar nuevamente</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Return Home Button -->
+        <a href="/" class="btn btn-primary btn-lg" style="width: 100%;">
+          <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+          </svg>
+          Volver al Inicio
+        </a>
+
+        <p class="text-muted" style="font-size: 0.875rem; margin-top: 1.5rem;">
+          Gracias por ejercer su derecho democrático
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <script src="/js/vote-sucess.js"></script>
+</body>
+</html>

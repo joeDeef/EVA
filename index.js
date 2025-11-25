@@ -11,6 +11,10 @@ try {
 const app = express();
 const port = process.env.PORT;
 
+app.use(express.json());
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "public", "views"));
+
 // Servir archivos estáticos desde /public
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -20,30 +24,29 @@ app.get('/', (req, res) => {
 });
 
 // Si existe un router en src/routes/index.js lo montamos
-const routesPath = path.join(__dirname, 'src', 'routes', 'index.js');
+const routesPath = path.join(__dirname, 'src', 'routes', 'routes.js');
 if (fs.existsSync(routesPath)) {
   try {
     const indexRouter = require(routesPath);
     app.use('/', indexRouter);
   } catch (err) {
-    console.warn('No se pudo montar src/routes/index.js:', err.message);
+    console.warn('No se pudo montar src/routes/routes.js:', err);
   }
 }
 
-// 404: enviar 404.html si existe, si no, mensaje simple
+// 404: enviar 404.html si existe
 app.use((req, res) => {
-  const notFound = path.join(__dirname, 'public', '404.html');
+  const notFound = path.join(__dirname, 'public', 'views', '404.html');
   if (fs.existsSync(notFound)) return res.status(404).sendFile(notFound);
   return res.status(404).send('Página no encontrada');
 });
 
-// **Prueba de conexión y levantar servidor**
+// **Levantar servidor**
 async function startServer() {
   try {
     await sequelize.authenticate();
     console.log('Conexión a la base de datos exitosa.');
 
-    const port = process.env.PORT || 3000;
     app.listen(port, () => {
       console.log(`Server running on http://localhost:${port}`);
     });
