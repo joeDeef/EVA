@@ -1,7 +1,10 @@
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
+const http = require('http');
+const WebSocket = require('ws');
 const sequelize = require('./src/config/db');
+const ChatHandler = require('./src/sockets/chatHandler');
 
 //Usado para las variables de entorno
 try {
@@ -47,8 +50,15 @@ async function startServer() {
     await sequelize.authenticate();
     console.log('Conexión a la base de datos exitosa.');
 
-    app.listen(port, () => {
-      console.log(`Server running on http://localhost:${port}`);
+    const server = http.createServer(app);
+    const wss = new WebSocket.Server({ server });
+    const chatHandler = new ChatHandler();
+
+    wss.on('connection', (ws) => chatHandler.handleConnection(ws));
+
+    server.listen(port, () => {
+      console.log(`🚀 Server running on http://localhost:${port}`);
+      console.log(`💬 WebSocket server ready`);
     });
   } catch (error) {
     console.error('No se pudo conectar a la base de datos:', error);

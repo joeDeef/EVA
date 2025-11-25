@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resultados en Tiempo Real - Sistema de Votación</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <div class="header-title">
+          <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+          </svg>
+          <span>Resultados en Tiempo Real</span>
+        </div>
+        <a href="/" class="btn btn-secondary">
+          <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+          </svg>
+          Volver al Inicio
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main style="padding: 3rem 0; background: var(--muted);">
+    <div class="container">
+      <div class="text-center mb-8">
+        <h1 style="font-size: 2.5rem; margin-bottom: 0.5rem;">Centro de Resultados Electorales</h1>
+        <p style="font-size: 1.125rem; color: var(--muted-foreground);">
+          Resultados actualizados automáticamente cada 10 segundos
+        </p>
+      </div>
+
+      <!-- Election Selector -->
+      <div class="card mb-6">
+        <div class="form-group" style="margin-bottom: 0;">
+          <label class="form-label" for="election-select">Seleccionar Elección:</label>
+          <select id="election-select" class="form-input" style="max-width: 500px;">
+            <option value="">Cargando elecciones...</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Stats Cards -->
+      <div class="grid grid-cols-3 mb-8">
+        <div class="card">
+          <h3 class="text-muted mb-2" style="font-size: 0.875rem; font-weight: 600;">TOTAL DE VOTOS</h3>
+          <p id="total-votes" style="font-size: 3rem; font-weight: 700; color: var(--primary);">0</p>
+          <p class="text-muted" style="font-size: 0.875rem;">Votos contabilizados</p>
+        </div>
+
+        <div class="card">
+          <h3 class="text-muted mb-2" style="font-size: 0.875rem; font-weight: 600;">PARTICIPACIÓN</h3>
+          <p id="participation" style="font-size: 3rem; font-weight: 700; color: var(--accent);">0%</p>
+          <p class="text-muted" style="font-size: 0.875rem;"><span id="participation-detail">Del padrón electoral</span></p>
+        </div>
+
+        <div class="card">
+          <h3 class="text-muted mb-2" style="font-size: 0.875rem; font-weight: 600;">TENDENCIA</h3>
+          <div class="flex gap-2" style="align-items: center;">
+            <svg id="trend-icon" class="icon" style="color: var(--success);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+            </svg>
+            <p id="trend-value" style="font-size: 2rem; font-weight: 700; color: var(--success);">0%</p>
+          </div>
+          <p class="text-muted" style="font-size: 0.875rem;">vs hora anterior</p>
+        </div>
+      </div>
+
+      <!-- Results by Candidate -->
+      <div class="card mb-8">
+        <div class="flex-between mb-6">
+          <h2 style="font-size: 1.875rem; font-weight: 600;">Distribución de Votos</h2>
+          <div class="flex gap-2" style="align-items: center;">
+            <div id="live-indicator" style="width: 0.5rem; height: 0.5rem; background: var(--success); border-radius: 50%; animation: pulse 2s infinite;"></div>
+            <span class="text-muted" style="font-size: 0.875rem;">Actualización en vivo</span>
+          </div>
+        </div>
+
+        <div id="results-container" class="grid" style="gap: 2rem;">
+          <p class="text-muted text-center">Seleccione una elección para ver los resultados</p>
+        </div>
+      </div>
+
+      <!-- Results by Province -->
+      <div class="card">
+        <h2 class="mb-6" style="font-size: 1.875rem; font-weight: 600;">Participación por Provincia</h2>
+        <div id="provinces-container" class="grid" style="gap: 1rem;">
+          <p class="text-muted text-center">Seleccione una elección para ver resultados por provincia</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="/js/results.js"></script>
+
+  <!-- Botón flotante de chat de soporte -->
+  <a href="/support-chat" target="_blank" class="floating-chat-btn" aria-label="Chat de soporte">
+    <svg viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+    </svg>
+  </a>
+</body>
+</html>

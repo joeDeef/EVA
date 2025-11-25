@@ -582,3 +582,49 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 1.75rem;
   }
 }
+
+/* Floating Support Chat Button */
+.floating-chat-btn {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #003f7f 0%, #005aa7 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 63, 127, 0.4);
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+  z-index: 1000;
+  text-decoration: none;
+}
+
+.floating-chat-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(0, 63, 127, 0.5);
+}
+
+.floating-chat-btn svg {
+  width: 28px;
+  height: 28px;
+  stroke: white;
+  fill: none;
+  stroke-width: 2;
+}
+
+@media (max-width: 768px) {
+  .floating-chat-btn {
+    width: 50px;
+    height: 50px;
+    bottom: 15px;
+    left: 15px;
+  }
+  
+  .floating-chat-btn svg {
+    width: 24px;
+    height: 24px;
+  }
+}
