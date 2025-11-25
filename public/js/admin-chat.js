@@ -36,7 +36,7 @@ function connect() {
                 updateChatList(data.activeChats);
             } else if (data.type === 'new_chat') {
                 // Nuevo chat iniciado por un usuario
-                addChatToList(data.roomId, data.username);
+                addChatToList(data.roomId, data.username, data.cedula);
             } else if (data.type === 'room_joined') {
                 // Admin se unió exitosamente a una sala
                 console.log('Unido a sala:', data.roomId);
@@ -77,12 +77,12 @@ function updateChatList(chats) {
 
     chatListItems.innerHTML = '';
     chats.forEach(chat => {
-        addChatToList(chat.roomId, chat.username);
-        activeChats.set(chat.roomId, chat.username);
+        addChatToList(chat.roomId, chat.username, chat.cedula);
+        activeChats.set(chat.roomId, { username: chat.username, cedula: chat.cedula });
     });
 }
 
-function addChatToList(roomId, username) {
+function addChatToList(roomId, username, cedula = '') {
     // Evitar duplicados
     if (document.getElementById(`chat-${roomId}`)) {
         return;
@@ -99,7 +99,7 @@ function addChatToList(roomId, username) {
     chatItem.id = `chat-${roomId}`;
     chatItem.innerHTML = `
         <div class="chat-item-name">${username}</div>
-        <div class="chat-item-preview">Nuevo chat de soporte</div>
+        <div class="chat-item-preview">${cedula ? `CI: ${cedula}` : 'Nuevo chat de soporte'}</div>
     `;
     
     chatItem.addEventListener('click', () => {
@@ -107,7 +107,7 @@ function addChatToList(roomId, username) {
     });
     
     chatListItems.appendChild(chatItem);
-    activeChats.set(roomId, username);
+    activeChats.set(roomId, { username, cedula });
 }
 
 function selectChat(roomId, username) {

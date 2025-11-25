@@ -294,9 +294,10 @@
     <div id="usernameModal">
         <div class="modal-content">
             <h2>Chat de Soporte SEVOTEC</h2>
-            <p>Por favor, ingresa tu nombre para iniciar el chat</p>
-            <input type="text" id="usernameInput" placeholder="Tu nombre" maxlength="30" autocomplete="off">
-            <button id="startChatBtn">Iniciar Chat</button>
+            <p>Ingresa tu cédula para verificar tu identidad</p>
+            <input type="text" id="cedulaInput" placeholder="Número de cédula" maxlength="10" autocomplete="off" pattern="[0-9]*">
+            <div id="errorMsg" style="color: #dc2626; font-size: 13px; margin-top: 8px; display: none;"></div>
+            <button id="startChatBtn">Verificar e Iniciar Chat</button>
         </div>
     </div>
 

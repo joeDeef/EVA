@@ -34,17 +34,17 @@ class ChatHandler {
     }
   }
 
-  handleJoin(ws, { role, username, roomId }) {
-    this.userConnections.set(ws, { role, roomId, username });
+  handleJoin(ws, { role, username, roomId, cedula }) {
+    this.userConnections.set(ws, { role, roomId, username, cedula });
 
     if (role === 'user') {
-      this.handleUserJoin(ws, username, roomId);
+      this.handleUserJoin(ws, username, roomId, cedula);
     } else if (role === 'admin') {
       this.handleAdminJoin(ws);
     }
   }
 
-  handleUserJoin(ws, username, roomId) {
+  handleUserJoin(ws, username, roomId, cedula) {
     const newRoomId = roomId || `room_${Date.now()}`;
 
     if (!this.chatRooms.has(newRoomId)) {
@@ -60,7 +60,7 @@ class ChatHandler {
       message: 'Conectado al chat de soporte. Un administrador te atenderá pronto.'
     });
 
-    this.notifyAdminsNewChat(newRoomId, username);
+    this.notifyAdminsNewChat(newRoomId, username, cedula);
   }
 
   handleAdminJoin(ws) {
@@ -154,15 +154,16 @@ class ChatHandler {
         this.chatRooms.delete(conn.roomId);
       } else {
         // Notificar a otros admins que hay chat disponible
-        this.notifyAdminsNewChat(conn.roomId, this.userConnections.get(room.user)?.username || 'Usuario');
+        const userConn = this.userConnections.get(room.user);
+        this.notifyAdminsNewChat(conn.roomId, userConn?.username || 'Usuario', userConn?.cedula);
       }
     }
   }
 
-  notifyAdminsNewChat(roomId, username) {
+  notifyAdminsNewChat(roomId, username, cedula) {
     this.userConnections.forEach((conn, adminWs) => {
       if (conn.role === 'admin' && adminWs.readyState === WebSocket.OPEN) {
-        this.sendMessage(adminWs, { type: 'new_chat', roomId, username });
+        this.sendMessage(adminWs, { type: 'new_chat', roomId, username, cedula });
       }
     });
   }
@@ -170,10 +171,14 @@ class ChatHandler {
   getActiveChats() {
     return Array.from(this.chatRooms.entries())
       .filter(([_, room]) => room.user?.readyState === WebSocket.OPEN)
-      .map(([id, room]) => ({
-        roomId: id,
-        username: this.userConnections.get(room.user)?.username || 'Usuario'
-      }));
+      .map(([id, room]) => {
+        const userConn = this.userConnections.get(room.user);
+        return {
+          roomId: id,
+          username: userConn?.username || 'Usuario',
+          cedula: userConn?.cedula || ''
+        };
+      });
   }
 
   sendMessage(ws, data) {

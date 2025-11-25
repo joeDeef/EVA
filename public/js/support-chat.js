@@ -1,6 +1,7 @@
 let ws;
 let connected = false;
 let username = '';
+let cedula = '';
 let roomId = null;
 
 const messages = document.getElementById('messages');
@@ -9,8 +10,9 @@ const sendBtn = document.getElementById('sendBtn');
 const statusIndicator = document.getElementById('statusIndicator');
 const statusText = document.getElementById('statusText');
 const usernameModal = document.getElementById('usernameModal');
-const usernameInput = document.getElementById('usernameInput');
+const cedulaInput = document.getElementById('cedulaInput');
 const startChatBtn = document.getElementById('startChatBtn');
+const errorMsg = document.getElementById('errorMsg');
 
 function connect() {
     const protocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
@@ -28,6 +30,7 @@ function connect() {
             type: 'join',
             role: 'user',
             username: username,
+            cedula: cedula,
             roomId: roomId
         }));
     };
@@ -125,20 +128,57 @@ function escapeHtml(text) {
     return div.innerHTML;
 }
 
-function startChat() {
-    const name = usernameInput.value.trim();
+async function startChat() {
+    cedula = cedulaInput.value.trim();
     
-    if (!name) {
-        alert('Por favor ingresa tu nombre');
-        usernameInput.focus();
+    if (!cedula) {
+        showError('Por favor ingresa tu cédula');
         return;
     }
     
-    username = name;
-    usernameModal.classList.add('hidden');
+    if (cedula.length !== 10 || !/^\d+$/.test(cedula)) {
+        showError('La cédula debe tener 10 dígitos');
+        return;
+    }
     
-    // Conectar al WebSocket
-    connect();
+    // Verificar cédula en la base de datos
+    startChatBtn.disabled = true;
+    startChatBtn.textContent = 'Verificando...';
+    
+    try {
+        const response = await fetch('/api/verify-user', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ cedula })
+        });
+        
+        const data = await response.json();
+        
+        if (!response.ok) {
+            showError(data.message || 'Error al verificar la cédula');
+            startChatBtn.disabled = false;
+            startChatBtn.textContent = 'Verificar e Iniciar Chat';
+            return;
+        }
+        
+        username = data.nombres;
+        usernameModal.classList.add('hidden');
+        
+        // Conectar al WebSocket
+        connect();
+        
+    } catch (error) {
+        console.error('Error:', error);
+        showError('Error de conexión. Intenta de nuevo.');
+        startChatBtn.disabled = false;
+        startChatBtn.textContent = 'Verificar e Iniciar Chat';
+    }
+}
+
+function showError(message) {
+    errorMsg.textContent = message;
+    errorMsg.style.display = 'block';
+    cedulaInput.focus();
 }
 
 // Event listeners
@@ -152,11 +192,15 @@ messageInput.addEventListener('keypress', (e) => {
 
 startChatBtn.addEventListener('click', startChat);
 
-usernameInput.addEventListener('keypress', (e) => {
+cedulaInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
         startChat();
     }
 });
 
-// Focus inicial en el input de nombre
-usernameInput.focus();
+cedulaInput.addEventListener('input', () => {
+    errorMsg.style.display = 'none';
+});
+
+// Focus inicial en el input de cédula
+cedulaInput.focus();
