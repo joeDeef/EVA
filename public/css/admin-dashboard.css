@@ -1,13 +1,45 @@
-/*
-================================================================================
-                        ESTILOS DEL DASHBOARD ADMINISTRATIVO
-                               Sistema Electoral SEVOTEC
-================================================================================
-  Descripción: Estilos específicos para el panel de administración
-  Autor: Team SEVOTEC
-  Fecha: 24 de Noviembre 2025
-================================================================================
-*/
+.modal-overlay {
+  backdrop-filter: blur(4px);
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal {
+  animation: slideIn 0.3s ease-out;
+  transform: scale(1);
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.modal-header {
+  position: relative;
+}
+
+.modal-header h3 {
+  color: #1f2937;
+  letter-spacing: -0.025em;
+}
+
+.modal-header button:hover {
+  transform: scale(1.05);
+}
 
 /* ============================================================================
    LAYOUT PRINCIPAL DEL DASHBOARD
@@ -313,6 +345,18 @@ tr:last-child td {
 
 .btn-warning:hover {
   background: #d97706;
+}
+
+.btn-secondary {
+  background: #6b7280;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background: #4b5563;
 }
 
 /* ============================================================================

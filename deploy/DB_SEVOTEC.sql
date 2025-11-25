@@ -137,10 +137,7 @@ GO
    INSERTS: ADMINISTRADORES
 ============================================ */
 INSERT INTO dbo.Administradores (Nombres, Correo) VALUES
-('Super Admin','admin@sevotec.ec'),
-('Issac de la Cadena','issac.delacadena@gmail.com'),
-('Joel Defaz','joel.defaz@gmail.com'),
-('Santiago Murillo','santiago.murillo@gmail.com')
+('Super Admin','admin@sevotec.ec')
 GO
 
 /* ============================================
@@ -148,10 +145,7 @@ GO
 ============================================ */
 INSERT INTO dbo.AdminCredenciales (AdminID, HashPassword, Salt)
 VALUES
-(1,'admin123','salt1'), 
-(2,'issac2025','salt2'),
-(3,'joel2025','salt3'),
-(4,'santiago2025','salt4')
+(1,'$2b$12$uoI3BPaiWCaQhRsCTfkgeurBpzM/AtvBSf87wzHahg6AAP5IrRKh.','salt1')
 GO
 
 /* ============================================
@@ -168,10 +162,10 @@ GO
 ============================================ */
 INSERT INTO dbo.Candidatos (EleccionID, Nombre, Descripcion, Partido)
 VALUES
-(1,'Pregunta A','Bases Militares','Partido A'),
-(1,'Pregunta B','Reelección Presidencial','Partido B'),
-(1,'Pregunta C','Circo','Partido C'),
-(1,'Pregunta D','Constitución','Partido D'),
+(1,'Alan Brito Delago','DEP','Partido izq'),
+(1,'Susana Horia','Movimiento Ciudadano','Partido Der'),
+(1,'Armando Esteban Quito','Movimiento Libertad','Partido Oposiciòn'),
+(1,'Jose Delgado','Movimiento Democràtico','Partido Democratico'),
 (1,'Voto Blanco','Sin elección','Ninguno'),
 (1,'Voto Nulo','Ninguno','Ninguno'),
 (2,'Candidato X','Plan 1','Partido X'),

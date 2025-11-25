@@ -8,6 +8,6 @@ const apiRoutes = require('./api');
 router.use('/', appRoutes);
 router.use('/api', apiRoutes);
 router.use('/admin', adminRoutes);
-router.use('/api/admin', adminRoutes);
+//router.use('/api/admin', adminRoutes);
 
 module.exports = router;
